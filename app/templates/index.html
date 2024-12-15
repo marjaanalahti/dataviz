@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Mapbox & OpenStreetMap Visualization</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Lato', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: flex-start;
+            background: #f9f9f9;
+            border-bottom: 2px solid #ccc;
+            padding: 0 10px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            margin-right: 5px;
+            background: #e0e0e0;
+            border-radius: 10px 10px 0 0;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .tab:hover {
+            background: #d6d6d6;
+        }
+
+        .tab.active {
+            background: #ffffff;
+            border: 2px solid #ccc;
+            border-bottom: none;
+            position: relative;
+            z-index: 10;
+        }
+
+        .main {
+            display: flex;
+            flex-grow: 1; 
+            height: calc(100vh - 40px); 
+        }
+
+        .sidebar {
+            width: 33.3333%;
+            overflow-y: auto;
+            border-right: 1px solid rgba(0, 0, 0, 0.25);
+            background: #f9f9f9;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .map-container {
+            position: relative;
+            flex-grow: 1; 
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="tabs">
+        <a href="{{ url_for('home') }}" class="tab {% if request.endpoint == 'home' %}active{% endif %}">Main Page</a>
+        <a href="{{ url_for('theme1') }}" class="tab {% if request.endpoint == 'theme1' %}active{% endif %}">Theme 1</a>
+        <a href="{{ url_for('theme2') }}" class="tab {% if request.endpoint == 'theme2' %}active{% endif %}">Theme 2</a>
+    </div>
+
+    <div class="main">
+        <div class="sidebar">
+            <h1>Third Places</h1>
+            <div id="listings" class="listings"></div>
+        </div>
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

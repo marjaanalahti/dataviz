@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Theme 2 Visualization</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            font-family: 'Lato';
+        }
+
+        #visualization-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        #chart {
+            width: 80%;
+            height: 60%;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            margin: 20px 0;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        p {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        a {
+            text-align: center;
+            display: block;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Theme 2 Visualization</h1>
+    <div id="visualization-container">
+        <div id="chart"></div>
+        <p>Description of the theme and its significance in the context of this visualization.</p>
+        <a href="{{ url_for('home') }}">Back to Main Page</a>
+    </div>
+    <script>
+        document.getElementById('chart').innerHTML = '<p>Visualization placeholder for Theme 2</p>';
+    </script>
+</body>
+</html>
