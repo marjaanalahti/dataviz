@@ -1,74 +1,176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Theme 2 Visualization</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Ratings in Helsinki</title>
     <style>
         body {
+            font-family: 'Avenir', sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
+            justify-content: flex-start;
             flex-direction: column;
+            align-items: center;
+            background-color: #f9f9f9;
             height: 100vh;
-            font-family: 'Lato';
+            overflow-x: hidden;
         }
 
-        #visualization-container {
+        .tabs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background: #f9f9f9;
+            border-bottom: 2px solid #ccc;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+        }
+
+        .tab {
+            margin: 0 10px;
+            padding: 8px 16px;
+            text-decoration: none;
+            color: rgba(87, 0, 45, 1);
+            font-weight: lighter;
+            background: #e0e0e0;
+            border-radius: 10px 10px 0 0;
+            transition: background 0.3s;
+        }
+
+        .tab.active {
+            background: #ffffff;
+            border: 2px solid #ccc;
+            border-bottom: none;
+            z-index: 1;
+        }
+
+        /* Poster container styling */
+        .visualization-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 70vw; 
+            max-width: 420px; 
+            aspect-ratio: 1 / 1.414;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+        }
+
+
+        .visualization-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ecdfe5; 
+            opacity: 0.4; 
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 24px; 
+            font-weight: normal;
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            color: rgba(87, 0, 45, 1); 
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .map-circle {
+            position: relative;
+            width: 85%; 
+            aspect-ratio: 1; 
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .map-circle img {
+            position: absolute;
+            top: -5%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            object-fit: cover;
+        }
+
+        .legend {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100%;
+            width: 20%;
+            padding: 5px;
         }
 
-        #chart {
-            width: 80%;
-            height: 60%;
-            border: 1px solid #ccc;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            margin: 20px 0;
-            background-color: #f9f9f9;
+        .legend-gradient {
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(
+                to right,
+                rgb(255, 255, 193),  
+                rgb(227, 186, 139),
+                rgb(239, 141, 125),
+                rgb(250, 118, 147),
+                rgb(238, 88, 141),  
+                rgb(180, 72, 118),  
+                rgb(138, 47, 99),  
+                rgb(148, 61, 163),  
+                rgb(102, 38, 150),  
+                rgb(34, 1, 100)
+            );
+            margin-bottom: 5px;
         }
 
-        h1 {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 24px;
-            color: #333;
+        .legend-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-size: 10px;
+            color: rgba(87, 0, 45, 1);
         }
 
-        p {
-            text-align: center;
-            font-size: 14px;
-            color: #666;
-            margin: 10px 0;
-        }
-
-        a {
-            text-align: center;
-            display: block;
-            margin-top: 10px;
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
+        .description {
+            font-size: 12px;
+            font-weight: lighter;
+            line-height: 1.4;
+            color: rgba(87, 0, 45, 1); 
+            text-align: justify;
+            width: 85%; 
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <h1>Theme 2 Visualization</h1>
-    <div id="visualization-container">
-        <div id="chart"></div>
-        <p>Description of the theme and its significance in the context of this visualization.</p>
-        <a href="{{ url_for('home') }}">Back to Main Page</a>
+    <div class="tabs">
+        <a href="{{ url_for('home') }}" class="tab {% if request.endpoint == 'home' %}active{% endif %}">Explore map</a>
+        <a href="{{ url_for('theme1') }}" class="tab {% if request.endpoint == 'theme1' %}active{% endif %}">Poster 1</a>
+        <a href="{{ url_for('theme2') }}" class="tab {% if request.endpoint == 'theme2' %}active{% endif %}">Poster 2</a>
     </div>
-    <script>
-        document.getElementById('chart').innerHTML = '<p>Visualization placeholder for Theme 2</p>';
-    </script>
+
+    <div class="visualization-container">
+        <h1>HELSINKI CITY BLOCKS RATED</h1>
+        <div class="map-circle">
+            <img src="https://api.mapbox.com/styles/v1/roxyone/cm4pndfln007y01r0hm7v0m0s/static/24.93300,60.17,11.5/600x600@2x?access_token=pk.eyJ1Ijoicm94eW9uZSIsImEiOiJjbTM3aDlrd2wwOXNnMm5yMTJ4aW1wemRoIn0.qrzg70r0yeeYhrtyL7ITOA" alt="Helsinki Map">
+        </div>
+        <div class="legend">
+            <div class="legend-gradient"></div>
+            <div class="legend-labels">
+                <span>0</span>
+                <span>35</span>
+            </div>
+        </div>
+        <div class="description">
+            For each block in the Helsinki metropolitan area, the average rating for the businesses within that block have been calculated.
+        </div>
+    </div>
 </body>
 </html>

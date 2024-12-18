@@ -76,6 +76,11 @@
             bottom: 0;
             width: 100%;
             height: 100%;
+            flex-grow: 1;
+        }
+
+        #legend {
+            margin-top: 20px;
         }
 
     </style>
@@ -86,17 +91,16 @@
         <a href="{{ url_for('theme1') }}" class="tab {% if request.endpoint == 'theme1' %}active{% endif %}">Theme 1</a>
         <a href="{{ url_for('theme2') }}" class="tab {% if request.endpoint == 'theme2' %}active{% endif %}">Theme 2</a>
     </div>
-
     <div class="main">
         <div class="sidebar">
-            <h1>Third Places</h1>
+            <button id="toggle-button">Switch Map View</button>
             <div id="listings" class="listings"></div>
+            <div id="legend"></div>
         </div>
         <div class="map-container">
             <div id="map"></div>
         </div>
     </div>
-
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js"></script>
     <script src="/static/js/main.js"></script>
 </body>
