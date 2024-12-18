@@ -1,6 +1,5 @@
 mapboxgl.accessToken = 'pk.eyJ1Ijoicm94eW9uZSIsImEiOiJjbTM3aDlrd2wwOXNnMm5yMTJ4aW1wemRoIn0.qrzg70r0yeeYhrtyL7ITOA';
 
-// Initialize Map
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/roxyone/cm4ibojuj002b01s9ff7g02ve',
@@ -9,20 +8,17 @@ const map = new mapboxgl.Map({
     pitch: 60
 });
 
-let currentMetric = 'fastest_time'; // Default metric
+let currentMetric = 'fastest_time'; 
 
 map.on('load', async function () {
-    // Load GeoJSON data
     const geojsonPath = '/data/Merged_Blocks_clean.geojson';
     const geojsonData = await fetchGeoJSON(geojsonPath);
 
-    // Add source
     map.addSource('blocks', {
         type: 'geojson',
         data: geojsonData
     });
 
-    // Add layer
     map.addLayer({
         id: 'ratings-layer',
         type: 'fill',
@@ -30,18 +26,15 @@ map.on('load', async function () {
         paint: getLayerPaintConfig(currentMetric)
     });
 
-    // Click event to update sidebar
     map.on('click', 'ratings-layer', (e) => {
         const block = e.features[0];
         const blockInfo = block.properties;
         updateSidebar(blockInfo, currentMetric);
     });
 
-    // Initialize sidebar and legend
     initializeUIComponents(currentMetric);
 });
 
-// Fetch GeoJSON data
 async function fetchGeoJSON(path) {
     const response = await fetch(path);
     if (!response.ok) {
@@ -51,7 +44,6 @@ async function fetchGeoJSON(path) {
     return await response.json();
 }
 
-// Get paint configuration based on metric
 function getLayerPaintConfig(metric) {
     if (metric === 'average_rating') {
         return {
@@ -114,7 +106,6 @@ function updateSidebar(blockInfo, metric) {
     valueElement.textContent = value;
     sidebar.appendChild(valueElement);
 
-    // If businesses are available (only for average_rating)
     if (metric === 'average_rating' && blockInfo.businesses) {
         const businessList = document.createElement('ul');
         const businesses = JSON.parse(blockInfo.businesses);
@@ -128,7 +119,6 @@ function updateSidebar(blockInfo, metric) {
     }
 }
 
-// Initialize UI components (legend and tabs)
 function initializeUIComponents(metric) {
     setupLegend(metric);
     setupToggleButton();
