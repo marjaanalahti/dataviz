@@ -7,6 +7,7 @@
     <style>
         body {
             font-family: 'Avenir', sans-serif;
+            color: rgba(87, 0, 45, 1);
             margin: 0;
             padding: 0;
             display: flex;
@@ -26,7 +27,7 @@
             background: #f9f9f9;
             border-bottom: 2px solid #ccc;
             padding: 10px 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+            box-shadow: 0 2px 4px rgba(141, 0, 59, 0.1); 
         }
 
         .tab {
@@ -47,7 +48,6 @@
             z-index: 1;
         }
 
-        /* Poster container styling */
         .visualization-container {
             position: relative;
             display: flex;
@@ -70,7 +70,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #ecdfe5; 
+            background-color: rgb(236, 223, 229); 
             opacity: 0.4; 
             z-index: -1;
         }
@@ -151,8 +151,8 @@
 </head>
 <body>
     <div class="tabs">
-        <a href="{{ url_for('home') }}" class="tab {% if request.endpoint == 'home' %}active{% endif %}">Explore map</a>
-        <a href="{{ url_for('theme1') }}" class="tab {% if request.endpoint == 'theme1' %}active{% endif %}">Poster 1</a>
+        <a href="{{ url_for('theme1') }}" class="tab {% if request.endpoint == 'theme1' %}active{% endif %}">Explore map</a>
+        <a href="{{ url_for('home') }}" class="tab {% if request.endpoint == 'home' %}active{% endif %}">Poster 1</a>
         <a href="{{ url_for('theme2') }}" class="tab {% if request.endpoint == 'theme2' %}active{% endif %}">Poster 2</a>
     </div>
 
@@ -169,7 +169,7 @@
             </div>
         </div>
         <div class="description">
-            For each block in the Helsinki metropolitan area, the average rating for the businesses within that block have been calculated.
+            The average rating for the businesses within each block in the Helsinki metropolitan area.
         </div>
     </div>
 </body>

@@ -6,7 +6,7 @@ CORS(app)
 
 @app.route("/")
 def home():
-    return render_template("index.html") 
+    return render_template("page1.html") 
 
 #@app.route("/average_rating")
 #def average_rating():
@@ -19,7 +19,7 @@ def home():
 
 @app.route("/theme1")
 def theme1():
-    return render_template("page1.html")
+    return render_template("index.html")
 
 @app.route("/theme2")
 def theme2():

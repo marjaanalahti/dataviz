@@ -5,12 +5,12 @@
     <title>Mapbox & OpenStreetMap Visualization</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Lato', sans-serif;
+            font-family: 'Avenir', sans-serif;
+            color: rgba(87, 0, 45, 1);
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -18,22 +18,24 @@
 
         .tabs {
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            color: rgba(87, 0, 45, 1);
             background: #f9f9f9;
             border-bottom: 2px solid #ccc;
-            padding: 0 10px;
-            position: relative;
-            z-index: 10;
+            padding: 10px 0;
+            box-shadow: 0 2px 4px rgba(141, 0, 59, 0.1); 
         }
 
         .tab {
-            padding: 10px 20px;
-            margin-right: 5px;
+            margin: 0 10px;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-weight: lighter;
+            color: rgba(87, 0, 45, 1);
             background: #e0e0e0;
             border-radius: 10px 10px 0 0;
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
             transition: background 0.3s;
         }
 
@@ -45,29 +47,35 @@
             background: #ffffff;
             border: 2px solid #ccc;
             border-bottom: none;
-            position: relative;
-            z-index: 10;
+            z-index: 1;
         }
 
         .main {
-            display: flex;
+            position: relative;
+            height: 100%;
             flex-grow: 1; 
             height: calc(100vh - 40px); 
         }
 
         .sidebar {
-            width: 33.3333%;
+            width: 15%;
+            max-height: fit-content;
             overflow-y: auto;
-            border-right: 1px solid rgba(0, 0, 0, 0.25);
-            background: #f9f9f9;
-            padding: 20px;
+            background: rgb(236, 223, 229, 0.8);
+            backdrop-filter: blur(5px);
+            padding: 5px;
+            position: absolute;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             z-index: 10;
         }
 
         .map-container {
-            position: relative;
-            flex-grow: 1; 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; 
         }
 
         #map {
@@ -76,26 +84,57 @@
             bottom: 0;
             width: 100%;
             height: 100%;
-            flex-grow: 1;
+        }
+
+        #listings {
+            margin-bottom: 5px;
         }
 
         #legend {
-            margin-top: 20px;
+            margin-top: 10px;
+            margin-bottom: 0;
         }
 
+        h1 {
+            font-size: 15px; 
+            font-weight: normal;
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            color: rgba(87, 0, 45, 1); 
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 15px; 
+            font-weight: normal;
+            text-transform: uppercase; 
+            letter-spacing: 3px; 
+            color: rgba(87, 0, 45, 1); 
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        .sidebar-content {
+            font-size: 15px; 
+            font-weight: lighter;
+            margin: 2px 0;
+            text-align: left;
+        }
+    
     </style>
 </head>
 <body>
     <div class="tabs">
-        <a href="{{ url_for('home') }}" class="tab {% if request.endpoint == 'home' %}active{% endif %}">Main Page</a>
-        <a href="{{ url_for('theme1') }}" class="tab {% if request.endpoint == 'theme1' %}active{% endif %}">Theme 1</a>
-        <a href="{{ url_for('theme2') }}" class="tab {% if request.endpoint == 'theme2' %}active{% endif %}">Theme 2</a>
+        <a href="{{ url_for('theme1') }}" class="tab {% if request.endpoint == 'theme1' %}active{% endif %}">Explore map</a>
+        <a href="{{ url_for('home') }}" class="tab {% if request.endpoint == 'home' %}active{% endif %}">Poster 1</a>
+        <a href="{{ url_for('theme2') }}" class="tab {% if request.endpoint == 'theme2' %}active{% endif %}">Poster 2</a>
     </div>
     <div class="main">
         <div class="sidebar">
             <button id="toggle-button">Switch Map View</button>
-            <div id="listings" class="listings"></div>
             <div id="legend"></div>
+            <div id="listings" class="listings"></div>
         </div>
         <div class="map-container">
             <div id="map"></div>

@@ -7,6 +7,7 @@
     <style>
         body {
             font-family: 'Avenir', sans-serif;
+            color:rgb(34, 1, 100);
             margin: 0;
             padding: 0;
             display: flex;
@@ -22,18 +23,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            color:rgb(34, 1, 100);
             width: 100%;
             background: #f9f9f9;
             border-bottom: 2px solid #ccc;
             padding: 10px 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+            box-shadow: 0 2px 4px rgba(141, 0, 59, 0.1); 
         }
 
         .tab {
             margin: 0 10px;
             padding: 8px 16px;
             text-decoration: none;
-            color: rgba(87, 0, 45, 1);
             font-weight: lighter;
             background: #e0e0e0;
             border-radius: 10px 10px 0 0;
@@ -47,7 +48,6 @@
             z-index: 1;
         }
 
-        /* Poster container styling */
         .visualization-container {
             position: relative;
             display: flex;
@@ -80,7 +80,6 @@
             font-weight: normal;
             text-transform: uppercase; 
             letter-spacing: 3px; 
-            color: rgba(87, 0, 45, 1); 
             margin: 10px 0;
             text-align: center;
         }
@@ -135,14 +134,12 @@
             justify-content: space-between;
             width: 100%;
             font-size: 10px;
-            color: rgba(87, 0, 45, 1);
         }
 
         .description {
             font-size: 12px;
             font-weight: lighter;
             line-height: 1.4;
-            color: rgba(87, 0, 45, 1); 
             text-align: justify;
             width: 85%; 
             margin: 5px 0;
@@ -151,15 +148,15 @@
 </head>
 <body>
     <div class="tabs">
-        <a href="{{ url_for('home') }}" class="tab {% if request.endpoint == 'home' %}active{% endif %}">Explore map</a>
-        <a href="{{ url_for('theme1') }}" class="tab {% if request.endpoint == 'theme1' %}active{% endif %}">Poster 1</a>
+        <a href="{{ url_for('theme1') }}" class="tab {% if request.endpoint == 'theme1' %}active{% endif %}">Explore map</a>
+        <a href="{{ url_for('home') }}" class="tab {% if request.endpoint == 'home' %}active{% endif %}">Poster 1</a>
         <a href="{{ url_for('theme2') }}" class="tab {% if request.endpoint == 'theme2' %}active{% endif %}">Poster 2</a>
     </div>
 
     <div class="visualization-container">
-        <h1>HELSINKI CITY BLOCKS RATED</h1>
+        <h1>Fancy some coffee?</h1>
         <div class="map-circle">
-            <img src="https://api.mapbox.com/styles/v1/roxyone/cm4pndfln007y01r0hm7v0m0s/static/24.93300,60.17,11.5/600x600@2x?access_token=pk.eyJ1Ijoicm94eW9uZSIsImEiOiJjbTM3aDlrd2wwOXNnMm5yMTJ4aW1wemRoIn0.qrzg70r0yeeYhrtyL7ITOA" alt="Helsinki Map">
+            <img src="https://api.mapbox.com/styles/v1/roxyone/cm4pndfln007y01r0hm7v0m0s/static/24.93300,60.17,9.5/600x600@2x?access_token=pk.eyJ1Ijoicm94eW9uZSIsImEiOiJjbTM3aDlrd2wwOXNnMm5yMTJ4aW1wemRoIn0.qrzg70r0yeeYhrtyL7ITOA" alt="Helsinki Map">
         </div>
         <div class="legend">
             <div class="legend-gradient"></div>
@@ -169,7 +166,7 @@
             </div>
         </div>
         <div class="description">
-            For each block in the Helsinki metropolitan area, the average rating for the businesses within that block have been calculated.
+            The fastest travel time to a highly rated cafe (4.5+) from each block in the Helsinki Metropolitan Area.
         </div>
     </div>
 </body>
